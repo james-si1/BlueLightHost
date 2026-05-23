@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
-    return redirect()->route('frontend.beranda');
+    return 'Laravel Railway Berhasil!';
 });
 
 // Dashboard admin / pegawai / customer
