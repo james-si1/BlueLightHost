@@ -1,29 +1,28 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    libzip-dev \
+    git \
+    curl \
     zip \
     unzip \
-    git \
-    curl
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev
 
-RUN docker-php-ext-install pdo pdo_mysql zip
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-RUN a2enmod rewrite
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 COPY . .
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN composer install --no-dev --optimize-autoloader
-
-RUN cp .env.example .env || true
+RUN composer update --no-dev --optimize-autoloader
 
 RUN php artisan key:generate || true
-
-RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 8080
 
