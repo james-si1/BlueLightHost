@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-RUN a2enmod rewrite
-
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
@@ -41,4 +39,4 @@ RUN echo '<VirtualHost *:80>\n\
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan storage:link || true && php artisan migrate --force && php artisan optimize:clear && apache2-foreground"]
+CMD ["sh", "-c", "php artisan migrate --force && php artisan optimize:clear && apache2-foreground"]
