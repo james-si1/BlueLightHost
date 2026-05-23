@@ -39,6 +39,6 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan storage:link || true && php artisan migrate --force && apache2-foreground"]
+CMD ["sh", "-c", "php artisan storage:link || true && php artisan migrate --force && php artisan optimize:clear && apache2-foreground"]
