@@ -31,4 +31,4 @@ RUN php artisan optimize:clear
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan config:clear && php artisan cache:clear && php artisan route:clear && php artisan view:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080"]
+CMD ["sh", "-c", "php artisan optimize:clear && php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=8080"]
