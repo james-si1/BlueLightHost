@@ -13,41 +13,65 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f6f9;
-            overflow-x: hidden;
+            color: #111827;
         }
 
-        img {
+        img,
+        video,
+        iframe,
+        svg {
             max-width: 100%;
             height: auto;
         }
 
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .navbar {
+            width: 100%;
             min-height: 75px;
             background: #fff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
+            padding: 15px 24px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 18px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
         }
 
         .logo img {
             height: 42px;
+            width: auto;
+            display: block;
         }
 
         .nav-menu {
             display: flex;
             gap: 25px;
             align-items: center;
+            justify-content: center;
+            flex: 1;
         }
 
         .nav-menu a {
@@ -55,6 +79,7 @@
             color: #111;
             font-weight: 600;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         .nav-menu a.active {
@@ -65,8 +90,9 @@
         .nav-right {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 10px;
-            flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
         .icon-btn {
@@ -94,10 +120,14 @@
             font-weight: 600;
             font-size: 14px;
             white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .profile-wrapper {
             position: relative;
+            flex-shrink: 0;
         }
 
         .profile-btn {
@@ -111,6 +141,7 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .profile-btn img {
@@ -118,6 +149,7 @@
             height: 32px;
             border-radius: 50%;
             object-fit: cover;
+            flex-shrink: 0;
         }
 
         .dropdown {
@@ -166,45 +198,116 @@
         }
 
         .content {
-            padding: 20px;
             width: 100%;
+            max-width: 100%;
+            padding: 20px;
             overflow-x: hidden;
+        }
+
+        .content table {
+            width: 100%;
+        }
+
+        .content input,
+        .content select,
+        .content textarea,
+        .content button {
+            max-width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 14px 16px;
+                gap: 14px;
+            }
+
+            .nav-menu {
+                gap: 18px;
+            }
         }
 
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
                 align-items: stretch;
-                padding: 15px;
+                justify-content: center;
+                padding: 14px 12px;
             }
 
             .logo {
-                text-align: center;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .logo img {
+                height: 40px;
             }
 
             .nav-menu {
+                width: 100%;
+                display: flex;
                 justify-content: center;
                 flex-wrap: wrap;
-                gap: 18px;
+                gap: 10px;
+            }
+
+            .nav-menu a {
+                font-size: 14px;
+                padding: 8px 10px;
+                border-radius: 8px;
+                background: #f5f6fa;
+            }
+
+            .nav-menu a.active {
+                border-bottom: none;
+                background: #1f2e4a;
+                color: #fff;
+                padding-bottom: 8px;
             }
 
             .nav-right {
+                width: 100%;
                 justify-content: center;
-            }
-
-            .content {
-                padding: 15px;
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
             .login-btn {
                 width: 100%;
+                max-width: 320px;
                 text-align: center;
+            }
+
+            .dropdown {
+                right: 50%;
+                transform: translate(50%, 8px);
+            }
+
+            .dropdown.show {
+                transform: translate(50%, 0);
+            }
+
+            .content {
+                padding: 14px 12px;
             }
         }
 
         @media (max-width: 480px) {
+            .navbar {
+                padding: 12px 10px;
+            }
+
+            .logo img {
+                height: 36px;
+            }
+
+            .nav-menu {
+                gap: 8px;
+            }
+
             .nav-menu a {
                 font-size: 13px;
+                padding: 8px 9px;
             }
 
             .icon-btn {
@@ -215,6 +318,12 @@
 
             .profile-btn {
                 height: 38px;
+                padding: 0 10px;
+            }
+
+            .profile-btn img {
+                width: 28px;
+                height: 28px;
             }
 
             .content {
@@ -253,8 +362,9 @@
                     @endphp
 
                     <img src="{{ $user && $user->foto 
-    ? asset('storage/' . $user->foto) 
-    : 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User') . '&background=ffffff&color=1f2e4a' }}">
+                        ? asset('storage/' . $user->foto) 
+                        : 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User') . '&background=ffffff&color=1f2e4a' }}"
+                        alt="Profile">
                     <i class="fas fa-caret-down"></i>
                 </button>
 
@@ -291,18 +401,20 @@
         const profileBtn = document.getElementById('profileBtn');
         const profileDropdown = document.getElementById('profileDropdown');
 
-        profileBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('show');
-        });
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('show');
+            });
 
-        profileDropdown.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
 
-        document.addEventListener('click', function() {
-            profileDropdown.classList.remove('show');
-        });
+            document.addEventListener('click', function() {
+                profileDropdown.classList.remove('show');
+            });
+        }
     </script>
 
 </body>
