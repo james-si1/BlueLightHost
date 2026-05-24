@@ -2,10 +2,6 @@
 
 @section('content')
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .success-page {
         min-height: calc(100vh - 75px);
         background: linear-gradient(rgba(0, 28, 45, 0.35), rgba(0, 28, 45, 0.45)),
@@ -19,7 +15,7 @@
 
     .success-card {
         width: 520px;
-        max-width: 95%;
+        max-width: 100%;
         background: rgba(0, 132, 168, 0.88);
         border-radius: 20px;
         padding: 45px 38px;
@@ -46,7 +42,7 @@
     }
 
     .success-card h1 {
-        font-size: 34px;
+        font-size: clamp(27px, 5vw, 34px);
         margin-bottom: 15px;
         font-weight: 800;
     }
@@ -87,6 +83,39 @@
     .btn-success-page:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 520px) {
+        .success-page {
+            padding: 30px 14px;
+        }
+
+        .success-card {
+            padding: 34px 20px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+        }
+
+        .success-icon i {
+            font-size: 38px;
+        }
+
+        .success-card p {
+            font-size: 15px;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .btn-success-page {
+            width: 100%;
+            text-align: center;
+        }
     }
 </style>
 

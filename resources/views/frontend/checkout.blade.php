@@ -6,21 +6,17 @@ $user = auth()->user();
 @endphp
 
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .checkout-page {
         background: linear-gradient(rgba(0, 28, 45, 0.35), rgba(0, 28, 45, 0.45)),
         url("{{ asset('frontend/img/bgberanda.png') }}") top center / cover no-repeat;
         min-height: calc(100vh - 75px);
         color: white;
-        padding: 35px 0 70px;
+        padding: 35px 20px 70px;
     }
 
     .checkout-container {
-        width: 88%;
-        max-width: 1050px;
+        width: 100%;
+        max-width: 1080px;
         margin: auto;
     }
 
@@ -42,15 +38,16 @@ $user = auth()->user();
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
     }
 
     .checkout-title {
         text-align: center;
-        margin-bottom: 45px;
+        margin-bottom: 38px;
     }
 
     .checkout-title h1 {
-        font-size: 26px;
+        font-size: clamp(25px, 4vw, 32px);
         margin-bottom: 8px;
     }
 
@@ -61,15 +58,16 @@ $user = auth()->user();
 
     .checkout-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 22px;
         align-items: start;
     }
 
     .box {
         background: rgba(0, 132, 168, 0.85);
-        border-radius: 12px;
+        border-radius: 14px;
         padding: 22px;
+        min-width: 0;
     }
 
     .box-title {
@@ -82,17 +80,19 @@ $user = auth()->user();
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 14px;
     }
 
     .edit-cart {
         color: white;
         font-size: 13px;
         text-decoration: underline;
+        white-space: nowrap;
     }
 
     .order-item {
         display: grid;
-        grid-template-columns: 70px 1fr auto;
+        grid-template-columns: 70px minmax(0, 1fr) auto;
         gap: 14px;
         align-items: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.45);
@@ -119,6 +119,7 @@ $user = auth()->user();
     .item-name {
         font-size: 14px;
         margin-bottom: 4px;
+        word-break: break-word;
     }
 
     .item-qty {
@@ -127,11 +128,13 @@ $user = auth()->user();
 
     .item-price {
         font-size: 13px;
+        white-space: nowrap;
     }
 
     .total-row {
         display: flex;
         justify-content: space-between;
+        gap: 15px;
         margin: 8px 0;
         font-size: 14px;
     }
@@ -140,7 +143,7 @@ $user = auth()->user();
         border-top: 1px solid white;
         padding-top: 12px;
         margin-top: 12px;
-        font-size: 20px;
+        font-size: clamp(18px, 3vw, 20px);
         font-weight: bold;
     }
 
@@ -164,6 +167,7 @@ $user = auth()->user();
         align-items: center;
         justify-content: center;
         font-size: 18px;
+        flex-shrink: 0;
     }
 
     .info-label {
@@ -173,6 +177,7 @@ $user = auth()->user();
     .info-value {
         font-size: 17px;
         font-weight: bold;
+        word-break: break-word;
     }
 
     .payment-title {
@@ -189,9 +194,11 @@ $user = auth()->user();
     .qris-box img {
         width: 210px;
         height: 210px;
+        max-width: 100%;
         object-fit: contain;
         background: white;
         padding: 8px;
+        border-radius: 8px;
     }
 
     .download-qris {
@@ -213,13 +220,19 @@ $user = auth()->user();
 
     .bank-card {
         border: 1px solid rgba(255, 255, 255, 0.65);
-        border-radius: 7px;
+        border-radius: 8px;
         padding: 10px;
         display: grid;
-        grid-template-columns: 85px 1fr auto;
+        grid-template-columns: 85px minmax(0, 1fr) auto;
         align-items: center;
         gap: 10px;
         margin-bottom: 10px;
+        transition: 0.3s;
+    }
+
+    .bank-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
 
     .bank-logo {
@@ -239,13 +252,10 @@ $user = auth()->user();
         object-fit: contain;
     }
 
-    .bank-card {
-        transition: 0.3s;
-    }
-
-    .bank-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    .bank-info {
+        font-size: 13px;
+        line-height: 1.45;
+        word-break: break-word;
     }
 
     .copy-btn {
@@ -257,6 +267,7 @@ $user = auth()->user();
         cursor: pointer;
         font-size: 13px;
         transition: 0.25s;
+        white-space: nowrap;
     }
 
     .copy-btn:hover {
@@ -266,7 +277,8 @@ $user = auth()->user();
     }
 
     .upload-box {
-        width: 55%;
+        width: 100%;
+        max-width: 640px;
         margin: 35px auto 0;
         background: rgba(0, 132, 168, 0.85);
         border-radius: 14px;
@@ -274,7 +286,7 @@ $user = auth()->user();
     }
 
     .upload-title {
-        font-size: 24px;
+        font-size: clamp(21px, 4vw, 24px);
         font-weight: bold;
         margin-bottom: 12px;
     }
@@ -282,6 +294,7 @@ $user = auth()->user();
     .upload-desc {
         font-size: 15px;
         margin-bottom: 25px;
+        line-height: 1.5;
     }
 
     .upload-area {
@@ -309,15 +322,10 @@ $user = auth()->user();
     }
 
     .file-name {
-        margin-top: 12px;
-        font-size: 14px;
-        color: #e8fbff;
-    }
-
-    .file-name {
         margin-top: 10px;
         font-size: 13px;
         color: #e8fbff;
+        word-break: break-word;
     }
 
     .confirm-area {
@@ -342,6 +350,69 @@ $user = auth()->user();
         padding: 12px;
         border-radius: 8px;
         margin-bottom: 15px;
+    }
+
+    @media (max-width: 850px) {
+        .checkout-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .checkout-page {
+            padding: 28px 14px 60px;
+        }
+
+        .box {
+            padding: 18px 15px;
+        }
+
+        .summary-header {
+            align-items: flex-start;
+        }
+
+        .order-item {
+            grid-template-columns: 58px minmax(0, 1fr);
+        }
+
+        .order-item img,
+        .no-image {
+            width: 55px;
+            height: 55px;
+        }
+
+        .item-price {
+            grid-column: 2;
+            white-space: normal;
+            margin-top: 4px;
+        }
+
+        .bank-card {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .bank-logo {
+            margin: 0 auto;
+        }
+
+        .copy-btn {
+            width: 100%;
+        }
+
+        .upload-box {
+            padding: 22px 16px;
+        }
+
+        .upload-area {
+            padding: 26px 16px;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            max-width: 340px;
+            padding: 14px 20px;
+        }
     }
 </style>
 
@@ -529,6 +600,7 @@ $user = auth()->user();
     const fileName = document.getElementById('fileName');
     const previewImage = document.getElementById('previewImage');
     const uploadContent = document.getElementById('uploadContent');
+    const checkoutForm = document.getElementById('checkoutForm');
 
     buktiInput.addEventListener('change', function() {
         const file = this.files[0];
@@ -541,8 +613,6 @@ $user = auth()->user();
             reader.onload = function(e) {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block';
-
-                // sembunyikan icon + text
                 uploadContent.style.display = 'none';
             };
 

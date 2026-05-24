@@ -2,20 +2,16 @@
 
 @section('content')
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .cart-page {
         background: linear-gradient(rgba(0, 28, 45, 0.35), rgba(0, 28, 45, 0.45)),
         url("{{ asset('frontend/img/bgberanda.png') }}") top center / cover no-repeat;
         min-height: calc(100vh - 75px);
         color: white;
-        padding: 30px 0 40px;
+        padding: 35px 20px 70px;
     }
 
     .cart-container {
-        width: 84%;
+        width: 100%;
         max-width: 1100px;
         margin: 0 auto;
     }
@@ -31,13 +27,13 @@
         color: white;
         text-decoration: none;
         font-size: 22px;
-        margin-bottom: 5px;
+        margin-bottom: 12px;
     }
 
     .cart-title {
         text-align: center;
-        font-size: 24px;
-        margin-bottom: 25px;
+        font-size: clamp(23px, 4vw, 30px);
+        margin: 0 0 25px;
         font-weight: 700;
     }
 
@@ -45,7 +41,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        font-size: 22px;
+        font-size: clamp(17px, 3vw, 22px);
         margin-bottom: 18px;
     }
 
@@ -54,18 +50,19 @@
         height: 22px;
         accent-color: #168bb0;
         cursor: pointer;
+        flex-shrink: 0;
     }
 
     .cart-item {
         position: relative;
         background: rgba(0, 132, 168, 0.85);
         border-radius: 14px;
-        padding: 35px 35px;
-        margin-bottom: 30px;
+        padding: 28px 30px;
+        margin-bottom: 22px;
         display: grid;
-        grid-template-columns: 35px 160px 1fr 130px;
+        grid-template-columns: 35px 150px minmax(0, 1fr) auto;
         align-items: center;
-        gap: 25px;
+        gap: 24px;
         transition: 0.35s ease;
     }
 
@@ -91,9 +88,14 @@
         justify-content: center;
     }
 
+    .cart-info {
+        min-width: 0;
+    }
+
     .cart-name {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: clamp(18px, 3vw, 21px);
+        margin-bottom: 12px;
+        word-break: break-word;
     }
 
     .qty-box {
@@ -132,16 +134,17 @@
     }
 
     .cart-price {
-        align-self: end;
         justify-self: end;
+        align-self: end;
         font-size: 18px;
         margin-bottom: 4px;
+        white-space: nowrap;
     }
 
     .delete-form {
         position: absolute;
-        top: 18px;
-        right: 22px;
+        top: 14px;
+        right: 18px;
         margin: 0;
     }
 
@@ -169,7 +172,7 @@
 
     .summary-title {
         text-align: center;
-        font-size: 24px;
+        font-size: clamp(21px, 4vw, 24px);
         font-weight: 700;
         margin-bottom: 22px;
     }
@@ -177,7 +180,8 @@
     .summary-row {
         display: flex;
         justify-content: space-between;
-        font-size: 20px;
+        gap: 18px;
+        font-size: clamp(17px, 3vw, 20px);
         margin: 10px 0;
     }
 
@@ -201,17 +205,17 @@
         padding: 14px 45px;
         border-radius: 35px;
         border: none;
-        font-size: 22px;
+        font-size: clamp(17px, 3vw, 22px);
         font-weight: 600;
         cursor: pointer;
     }
 
     .empty {
         background: rgba(0, 132, 168, 0.82);
-        padding: 45px;
+        padding: 45px 20px;
         border-radius: 14px;
         text-align: center;
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .empty a {
@@ -234,6 +238,76 @@
     .message-error {
         background: #f8d7da;
         color: #721c24;
+    }
+
+    @media (max-width: 760px) {
+        .cart-page {
+            padding: 28px 14px 60px;
+        }
+
+        .cart-item {
+            grid-template-columns: 30px 110px minmax(0, 1fr);
+            gap: 14px;
+            padding: 24px 16px 54px;
+        }
+
+        .cart-image img,
+        .no-image {
+            width: 105px;
+            height: 88px;
+        }
+
+        .cart-price {
+            grid-column: 2 / 4;
+            justify-self: start;
+            align-self: auto;
+            margin-left: 0;
+            margin-top: 6px;
+        }
+
+        .summary-box {
+            padding: 24px 18px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            max-width: 340px;
+        }
+    }
+
+    @media (max-width: 460px) {
+        .cart-item {
+            grid-template-columns: 28px 1fr;
+            gap: 12px;
+        }
+
+        .cart-image {
+            grid-column: 2;
+        }
+
+        .cart-image img,
+        .no-image {
+            width: 100%;
+            height: 170px;
+            box-shadow: none;
+        }
+
+        .cart-info {
+            grid-column: 2;
+        }
+
+        .cart-price {
+            grid-column: 2;
+        }
+
+        .qty-box {
+            width: 100%;
+            max-width: 160px;
+        }
+
+        .summary-row {
+            align-items: flex-start;
+        }
     }
 </style>
 

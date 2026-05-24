@@ -30,21 +30,17 @@ default => ucfirst($order->status)
 @endphp
 
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .detail-order-page {
         min-height: calc(100vh - 75px);
         background: linear-gradient(rgba(0, 28, 45, .35), rgba(0, 28, 45, .45)),
         url("{{ asset('frontend/img/bgberanda.png') }}") top center / cover no-repeat;
         color: white;
-        padding: 45px 0 85px;
+        padding: 45px 20px 85px;
         position: relative;
     }
 
     .detail-container {
-        width: 88%;
+        width: 100%;
         max-width: 1120px;
         margin: auto;
     }
@@ -65,29 +61,29 @@ default => ucfirst($order->status)
 
     .title-box {
         text-align: center;
-        margin-bottom: 70px;
+        margin-bottom: 50px;
     }
 
     .title-box h1 {
-        font-size: 32px;
-        margin-bottom: 25px;
+        font-size: clamp(27px, 5vw, 34px);
+        margin-bottom: 18px;
     }
 
     .title-box h3 {
-        font-size: 22px;
+        font-size: clamp(17px, 3vw, 22px);
         margin: 0;
     }
 
     .detail-card {
         background: rgba(0, 132, 168, .86);
-        border-radius: 8px;
-        padding: 24px 28px;
+        border-radius: 12px;
+        padding: 26px;
     }
 
     .top-grid {
         display: grid;
         grid-template-columns: 1.6fr 1.1fr 1.5fr;
-        gap: 28px;
+        gap: 26px;
         align-items: start;
         margin-bottom: 28px;
     }
@@ -134,8 +130,9 @@ default => ucfirst($order->status)
 
     .info-flex {
         display: flex;
-        gap: 25px;
+        gap: 22px;
         align-items: center;
+        flex-wrap: wrap;
     }
 
     .info-row {
@@ -143,6 +140,7 @@ default => ucfirst($order->status)
         gap: 12px;
         align-items: center;
         margin-bottom: 13px;
+        min-width: 0;
     }
 
     .info-row i {
@@ -153,6 +151,7 @@ default => ucfirst($order->status)
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
     }
 
     .label {
@@ -162,17 +161,19 @@ default => ucfirst($order->status)
     .value {
         font-size: 15px;
         font-weight: bold;
+        word-break: break-word;
     }
 
     .middle-border {
         border-left: 1px solid rgba(255, 255, 255, .8);
-        padding-left: 28px;
+        padding-left: 26px;
     }
 
     .location a {
         color: white;
         text-decoration: underline;
         font-size: 13px;
+        word-break: break-all;
     }
 
     .copy-link {
@@ -191,7 +192,7 @@ default => ucfirst($order->status)
 
     .order-item {
         display: grid;
-        grid-template-columns: 70px 1fr;
+        grid-template-columns: 70px minmax(0, 1fr);
         gap: 13px;
         align-items: center;
         margin-bottom: 15px;
@@ -219,7 +220,7 @@ default => ucfirst($order->status)
         border-radius: 8px;
         padding: 12px;
         font-size: 13px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         display: flex;
         gap: 10px;
         align-items: center;
@@ -227,6 +228,7 @@ default => ucfirst($order->status)
 
     .code-box i {
         font-size: 20px;
+        flex-shrink: 0;
     }
 
     .code-box.cancelled {
@@ -248,13 +250,13 @@ default => ucfirst($order->status)
 
     .preview-box img {
         max-width: 150px;
+        width: 100%;
         height: 210px;
         object-fit: cover;
         border-radius: 5px;
     }
 
     .note-list {
-        margin-top: 90px;
         font-size: 12px;
     }
 
@@ -267,6 +269,7 @@ default => ucfirst($order->status)
 
     .note-row i {
         color: #ffe600;
+        margin-top: 2px;
     }
 
     .payment-text {
@@ -294,7 +297,7 @@ default => ucfirst($order->status)
         max-width: 95%;
         background: white;
         color: #111;
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 38px 35px 28px;
         text-align: center;
         box-shadow: 0 15px 45px rgba(0, 0, 0, .35);
@@ -345,6 +348,59 @@ default => ucfirst($order->status)
 
     .cancel-modal button:hover {
         background: #d60000;
+    }
+
+    @media (max-width: 960px) {
+
+        .top-grid,
+        .bottom-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .middle-border {
+            border-left: none;
+            padding-left: 0;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .detail-order-page {
+            padding: 30px 14px 65px;
+        }
+
+        .title-box {
+            margin-bottom: 34px;
+        }
+
+        .detail-card {
+            padding: 20px 16px;
+        }
+
+        .top-grid,
+        .bottom-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .section-title {
+            margin-bottom: 12px;
+        }
+
+        .info-flex {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .preview-box img {
+            max-width: 220px;
+            height: auto;
+            max-height: 280px;
+        }
+
+        .cancel-modal {
+            padding: 30px 20px 24px;
+        }
     }
 </style>
 

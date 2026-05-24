@@ -2,20 +2,16 @@
 
 @section('content')
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .orders-page {
         min-height: calc(100vh - 75px);
         background: linear-gradient(rgba(0, 28, 45, .35), rgba(0, 28, 45, .45)),
         url("{{ asset('frontend/img/bgberanda.png') }}") top center / cover no-repeat;
         color: white;
-        padding: 45px 0 80px;
+        padding: 45px 20px 80px;
     }
 
     .orders-container {
-        width: 78%;
+        width: 100%;
         max-width: 980px;
         margin: auto;
     }
@@ -36,26 +32,26 @@
 
     .title-box {
         text-align: center;
-        margin-bottom: 65px;
+        margin-bottom: 50px;
     }
 
     .title-box h1 {
-        font-size: 32px;
+        font-size: clamp(26px, 5vw, 34px);
         margin-bottom: 12px;
     }
 
     .title-box p {
-        font-size: 18px;
+        font-size: clamp(15px, 3vw, 18px);
         margin: 0;
     }
 
     .order-card {
         background: rgba(0, 132, 168, .86);
-        border-radius: 8px;
+        border-radius: 12px;
         margin-bottom: 16px;
-        padding: 20px 25px;
+        padding: 20px 22px;
         display: grid;
-        grid-template-columns: 60px 1.5fr 1fr 1.1fr 115px;
+        grid-template-columns: 60px minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.1fr) 120px;
         align-items: center;
         gap: 18px;
     }
@@ -74,6 +70,7 @@
     .order-name {
         font-size: 18px;
         margin-bottom: 7px;
+        font-weight: 700;
     }
 
     .small-info {
@@ -90,6 +87,7 @@
     .total-price {
         font-size: 20px;
         font-weight: bold;
+        word-break: break-word;
     }
 
     .status-badge {
@@ -127,12 +125,13 @@
         color: white;
         border: 1px solid white;
         border-radius: 6px;
-        padding: 8px 13px;
+        padding: 9px 13px;
         text-decoration: none;
         font-size: 12px;
         font-weight: bold;
         display: inline-block;
         text-align: center;
+        white-space: nowrap;
     }
 
     .detail-btn:hover {
@@ -146,6 +145,53 @@
         padding: 35px;
         text-align: center;
         font-size: 18px;
+    }
+
+    @media (max-width: 860px) {
+        .order-card {
+            grid-template-columns: 52px minmax(0, 1fr) auto;
+            align-items: start;
+        }
+
+        .order-card>div:nth-child(3),
+        .order-card>div:nth-child(4) {
+            grid-column: 2 / 4;
+        }
+
+        .detail-btn {
+            grid-column: 2 / 4;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .orders-page {
+            padding: 30px 14px 60px;
+        }
+
+        .title-box {
+            margin-bottom: 35px;
+        }
+
+        .order-card {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 20px 16px;
+        }
+
+        .order-icon {
+            margin: 0 auto;
+        }
+
+        .order-card>div:nth-child(3),
+        .order-card>div:nth-child(4),
+        .detail-btn {
+            grid-column: auto;
+        }
+
+        .detail-btn {
+            width: 100%;
+        }
     }
 </style>
 

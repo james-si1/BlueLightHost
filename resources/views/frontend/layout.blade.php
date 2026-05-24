@@ -35,23 +35,28 @@
             height: auto;
         }
 
-        a {
+        a,
+        button {
             -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            font-family: inherit;
         }
 
         .navbar {
             width: 100%;
             min-height: 75px;
-            background: #fff;
+            background: #ffffff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 24px;
+            padding: 14px 28px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
-            z-index: 100;
-            gap: 18px;
+            z-index: 1000;
+            gap: 20px;
         }
 
         .logo {
@@ -68,10 +73,11 @@
 
         .nav-menu {
             display: flex;
-            gap: 25px;
+            gap: 28px;
             align-items: center;
             justify-content: center;
             flex: 1;
+            min-width: 0;
         }
 
         .nav-menu a {
@@ -80,11 +86,11 @@
             font-weight: 600;
             font-size: 14px;
             white-space: nowrap;
+            padding: 8px 0;
         }
 
         .nav-menu a.active {
             border-bottom: 2px solid #1f2e4a;
-            padding-bottom: 5px;
         }
 
         .nav-right {
@@ -102,7 +108,7 @@
             border: none;
             background: #f5f6fa;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #333;
@@ -114,7 +120,7 @@
         .login-btn {
             background: #1f2e4a;
             color: white;
-            padding: 10px 18px;
+            padding: 10px 20px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
@@ -161,7 +167,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            z-index: 999;
+            z-index: 9999;
             opacity: 0;
             transform: translateY(8px);
             pointer-events: none;
@@ -200,7 +206,7 @@
         .content {
             width: 100%;
             max-width: 100%;
-            padding: 20px;
+            padding: 0;
             overflow-x: hidden;
         }
 
@@ -215,99 +221,53 @@
             max-width: 100%;
         }
 
-        @media (max-width: 992px) {
-            .navbar {
-                padding: 14px 16px;
-                gap: 14px;
-            }
-
-            .nav-menu {
-                gap: 18px;
-            }
-        }
-
         @media (max-width: 768px) {
             .navbar {
-                flex-direction: column;
-                align-items: stretch;
-                justify-content: center;
-                padding: 14px 12px;
-            }
-
-            .logo {
-                justify-content: center;
-                width: 100%;
-            }
-
-            .logo img {
-                height: 40px;
-            }
-
-            .nav-menu {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-areas:
+                    "logo right"
+                    "menu menu";
+                align-items: center;
+                padding: 12px 14px;
                 gap: 10px;
             }
 
-            .nav-menu a {
-                font-size: 14px;
-                padding: 8px 10px;
-                border-radius: 8px;
-                background: #f5f6fa;
-            }
-
-            .nav-menu a.active {
-                border-bottom: none;
-                background: #1f2e4a;
-                color: #fff;
-                padding-bottom: 8px;
-            }
-
-            .nav-right {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .login-btn {
-                width: 100%;
-                max-width: 320px;
-                text-align: center;
-            }
-
-            .dropdown {
-                right: 50%;
-                transform: translate(50%, 8px);
-            }
-
-            .dropdown.show {
-                transform: translate(50%, 0);
-            }
-
-            .content {
-                padding: 14px 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 12px 10px;
+            .logo {
+                grid-area: logo;
+                justify-content: flex-start;
             }
 
             .logo img {
                 height: 36px;
             }
 
+            .nav-right {
+                grid-area: right;
+                justify-content: flex-end;
+                gap: 7px;
+            }
+
             .nav-menu {
+                grid-area: menu;
+                width: 100%;
+                justify-content: center;
                 gap: 8px;
+                flex-wrap: wrap;
+                padding-top: 4px;
             }
 
             .nav-menu a {
                 font-size: 13px;
-                padding: 8px 9px;
+                padding: 8px 14px;
+                border-radius: 999px;
+                background: #f5f6fa;
+            }
+
+            .nav-menu a.active {
+                border-bottom: none;
+                background: #1f2e4a;
+                color: white;
             }
 
             .icon-btn {
@@ -318,7 +278,7 @@
 
             .profile-btn {
                 height: 38px;
-                padding: 0 10px;
+                padding: 0 9px;
             }
 
             .profile-btn img {
@@ -326,8 +286,43 @@
                 height: 28px;
             }
 
-            .content {
+            .login-btn {
+                padding: 9px 15px;
+                font-size: 13px;
+            }
+
+            .dropdown {
+                right: 0;
+                top: 46px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .navbar {
                 padding: 10px;
+            }
+
+            .logo img {
+                height: 32px;
+            }
+
+            .nav-menu a {
+                font-size: 12px;
+                padding: 7px 11px;
+            }
+
+            .icon-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .profile-btn {
+                height: 35px;
+            }
+
+            .profile-btn img {
+                width: 25px;
+                height: 25px;
             }
         }
     </style>

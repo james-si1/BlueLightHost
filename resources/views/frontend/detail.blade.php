@@ -2,16 +2,18 @@
 
 @section('content')
 <style>
-    .content {
-        padding: 0 !important;
-    }
-
     .detail-page {
         background: linear-gradient(rgba(0, 28, 45, 0.35), rgba(0, 28, 45, 0.45)),
         url("{{ asset('frontend/img/bgberanda.png') }}") top center / cover no-repeat;
         min-height: calc(100vh - 75px);
         color: white;
-        padding: 50px 80px;
+        padding: 45px 20px 80px;
+    }
+
+    .detail-container {
+        width: 100%;
+        max-width: 1050px;
+        margin: 0 auto;
     }
 
     .back-link {
@@ -26,8 +28,8 @@
     }
 
     .back-link i {
-        width: 35px;
-        height: 35px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.55);
         color: #333;
@@ -35,51 +37,52 @@
         align-items: center;
         justify-content: center;
         font-size: 18px;
+        flex-shrink: 0;
     }
 
     .detail-card {
-        width: 75%;
-        max-width: 950px;
-        min-height: 400px;
-        margin: 0 auto;
+        width: 100%;
         background: #138bb0;
-        border-radius: 14px;
-        padding: 40px 50px;
-        display: flex;
+        border-radius: 16px;
+        padding: 38px 44px;
+        display: grid;
+        grid-template-columns: 320px minmax(0, 1fr);
         gap: 40px;
         align-items: center;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
     }
 
     .image-box {
-        width: 270px;
-        height: 310px;
+        width: 100%;
+        min-height: 300px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     .detail-image {
-        width: 260px;
-        height: 300px;
+        width: 100%;
+        max-width: 280px;
+        max-height: 320px;
         object-fit: contain;
     }
 
     .detail-info {
-        flex: 1;
+        min-width: 0;
     }
 
     .detail-title {
-        font-size: 28px;
-        line-height: 1.2;
+        font-size: clamp(24px, 4vw, 32px);
+        line-height: 1.25;
         font-weight: 800;
         margin-bottom: 18px;
+        word-break: break-word;
     }
 
     .detail-desc {
-        font-size: 14px;
-        line-height: 1.5;
-        max-width: 500px;
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 560px;
         margin-bottom: 20px;
     }
 
@@ -102,7 +105,7 @@
     }
 
     .jumlah-label {
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         font-size: 13px;
     }
 
@@ -116,10 +119,11 @@
     .qty-box {
         display: flex;
         width: 130px;
-        height: 38px;
+        height: 40px;
         border: 1px solid white;
-        border-radius: 5px;
+        border-radius: 6px;
         overflow: hidden;
+        flex-shrink: 0;
     }
 
     .qty-box button,
@@ -138,24 +142,24 @@
     }
 
     .buy-btn {
-        height: 38px;
+        height: 40px;
         width: 180px;
         background: #1d3557;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         font-weight: 700;
         font-size: 14px;
         cursor: pointer;
     }
 
     .cart-btn {
-        height: 38px;
+        height: 40px;
         padding: 0 16px;
         background: transparent;
         color: white;
         border: 1px solid white;
-        border-radius: 5px;
+        border-radius: 6px;
         font-weight: 700;
         font-size: 13px;
         cursor: pointer;
@@ -169,66 +173,121 @@
         background: white;
         color: #138bb0;
     }
+
+    @media (max-width: 850px) {
+        .detail-card {
+            grid-template-columns: 1fr;
+            gap: 24px;
+            padding: 30px 24px;
+            text-align: center;
+        }
+
+        .image-box {
+            min-height: auto;
+        }
+
+        .detail-desc {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .original {
+            justify-content: center;
+        }
+
+        .action-row {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .detail-page {
+            padding: 28px 14px 60px;
+        }
+
+        .detail-card {
+            padding: 24px 16px;
+        }
+
+        .detail-image {
+            max-width: 230px;
+            max-height: 250px;
+        }
+
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .qty-box,
+        .buy-btn,
+        .cart-btn {
+            width: 100%;
+        }
+    }
 </style>
 
 <section class="detail-page">
-    <a href="{{ route('frontend.products.index') }}" class="back-link">
-        <i class="fas fa-arrow-left"></i>
-        Kembali Ke Katalog
-    </a>
+    <div class="detail-container">
+        <a href="{{ route('frontend.products.index') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Kembali Ke Katalog
+        </a>
 
-    <div class="detail-card">
-        <div class="image-box">
-            @if($product->foto)
-            <img class="detail-image" src="{{ asset('storage/' . $product->foto) }}" alt="{{ $product->nama_barang }}">
-            @else
-            <img class="detail-image" src="{{ asset('frontend/img/no-image.png') }}" alt="No Image">
-            @endif
-        </div>
-
-        <div class="detail-info">
-            <div class="detail-title">
-                {{ $product->nama_barang }}<br>
-                Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
+        <div class="detail-card">
+            <div class="image-box">
+                @if($product->foto)
+                <img class="detail-image" src="{{ asset('storage/' . $product->foto) }}" alt="{{ $product->nama_barang }}">
+                @else
+                <img class="detail-image" src="{{ asset('frontend/img/no-image.png') }}" alt="No Image">
+                @endif
             </div>
 
-            <div class="detail-desc">
-                {{ $product->deskripsi ?? 'Produk berkualitas dari BlueLight Aquarium.' }}
-            </div>
-
-            <hr class="divider">
-
-            <div class="original">
-                <i class="fas fa-certificate"></i>
-                <span>100% Original</span>
-            </div>
-
-            <form id="detailForm" method="POST">
-                @csrf
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                <div class="jumlah-label">Jumlah</div>
-
-                <div class="action-row">
-                    <div class="qty-box">
-                        <button type="button" onclick="minusQty()">-</button>
-                        @php
-                        $stok = $product->stock->stok ?? 0;
-                        @endphp
-
-                        <input type="text" name="jumlah" id="qtyInput" value="1" data-stok="{{ $stok }}" readonly>
-                        <button type="button" onclick="plusQty()">+</button>
-                    </div>
-
-                    <button type="button" class="buy-btn" onclick="buyNow()">
-                        Beli Sekarang
-                    </button>
-
-                    <button type="button" class="cart-btn" onclick="addToCart()">
-                        <i class="fas fa-shopping-cart"></i> Masukkan Keranjang
-                    </button>
+            <div class="detail-info">
+                <div class="detail-title">
+                    {{ $product->nama_barang }}<br>
+                    Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
                 </div>
-            </form>
+
+                <div class="detail-desc">
+                    {{ $product->deskripsi ?? 'Produk berkualitas dari BlueLight Aquarium.' }}
+                </div>
+
+                <hr class="divider">
+
+                <div class="original">
+                    <i class="fas fa-certificate"></i>
+                    <span>100% Original</span>
+                </div>
+
+                <form id="detailForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                    <div class="jumlah-label">Jumlah</div>
+
+                    <div class="action-row">
+                        <div class="qty-box">
+                            <button type="button" onclick="minusQty()">-</button>
+                            @php
+                            $stok = $product->stock->stok ?? 0;
+                            @endphp
+
+                            <input type="text" name="jumlah" id="qtyInput" value="1" data-stok="{{ $stok }}" readonly>
+                            <button type="button" onclick="plusQty()">+</button>
+                        </div>
+
+                        <button type="button" class="buy-btn" onclick="buyNow()">
+                            Beli Sekarang
+                        </button>
+
+                        <button type="button" class="cart-btn" onclick="addToCart()">
+                            <i class="fas fa-shopping-cart"></i> Masukkan Keranjang
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
