@@ -110,26 +110,22 @@ for ($i = 1; $i <= 8; $i++) {
     width: 155px;
     height: 400px;
     overflow: hidden;
-    position: relative;
-    clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%);
-    -webkit-clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%);
+    transform: skew(-5deg);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-    transition: 0.3s ease;
-    background: rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
     }
 
     .fish-card:hover {
-    transform: translateY(-10px);
+    transform: skew(-5deg) translateY(-10px);
     }
 
     .fish-card img {
-    width: 125%;
+    width: 120%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    transform: translateX(-10%);
-    display: block;
+    transform: skew(5deg) translateX(-10px);
     }
+
     .slider-dots {
     display: flex;
     justify-content: center;
@@ -405,12 +401,10 @@ for ($i = 1; $i <= 8; $i++) {
     }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 360px) {
     .fish-card {
-    width: 118px;
-    height: 280px;
-    clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
-    -webkit-clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
+    width: 92px;
+    height: 225px;
     }
     }
     </style>
