@@ -9,36 +9,45 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f6f9;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         .navbar {
-            height: 75px;
+            min-height: 75px;
             background: #fff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 35px;
+            padding: 15px 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo img {
-            height: 45px;
+            height: 42px;
         }
 
         .nav-menu {
             display: flex;
-            gap: 45px;
+            gap: 25px;
             align-items: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         .nav-menu a {
@@ -50,13 +59,14 @@
 
         .nav-menu a.active {
             border-bottom: 2px solid #1f2e4a;
-            padding-bottom: 8px;
+            padding-bottom: 5px;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .icon-btn {
@@ -72,16 +82,18 @@
             color: #333;
             text-decoration: none;
             font-size: 16px;
+            flex-shrink: 0;
         }
 
         .login-btn {
             background: #1f2e4a;
             color: white;
-            padding: 11px 24px;
+            padding: 10px 18px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         .profile-wrapper {
@@ -102,9 +114,10 @@
         }
 
         .profile-btn img {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
+            object-fit: cover;
         }
 
         .dropdown {
@@ -153,14 +166,60 @@
         }
 
         .content {
-            padding: 30px;
+            padding: 20px;
+            width: 100%;
+            overflow-x: hidden;
         }
 
-        .profile-btn img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px;
+            }
+
+            .logo {
+                text-align: center;
+            }
+
+            .nav-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 18px;
+            }
+
+            .nav-right {
+                justify-content: center;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .login-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu a {
+                font-size: 13px;
+            }
+
+            .icon-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 14px;
+            }
+
+            .profile-btn {
+                height: 38px;
+            }
+
+            .content {
+                padding: 10px;
+            }
         }
     </style>
 </head>
