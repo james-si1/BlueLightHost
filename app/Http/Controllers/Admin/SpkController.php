@@ -67,16 +67,62 @@ class SpkController extends Controller
         }
 
         foreach ($penilaians as $p) {
-            $normalC1 = $p->c1 == 1 ? 1 : ($p->c1 == 2 ? 0.5 : 0.33);
-            $normalC2 = $p->c2 == 3 ? 1 : ($p->c2 == 2 ? 0.67 : 0.33);
-            $normalC3 = $p->c3 == 3 ? 1 : ($p->c3 == 2 ? 0.67 : 0.33);
 
-            $skor = ($normalC1 * 0.5) + ($normalC2 * 0.3) + ($normalC3 * 0.2);
+            /* 
+        ----- NORMALISASI SAW -----
+        
+         C1 = Harga (Cost)
+         1 = Murah    => 1
+         2 = Menengah => 0.5
+         3 = Mahal    => 0.33
+        
+         C2 = Keindahan (Benefit)
+         1 = Kurang Menarik => 0.33
+         2 = Menarik        => 0.66
+         3 = Sangat Menarik => 1
+        
+         C3 = Perawatan (Benefit)
+         1 = Sulit         => 0.33
+         2 = Mudah         => 0.66
+         3 = Sangat Mudah  => 1
+        */
+
+            $normalC1 = match ($p->c1) {
+                1 => 1,
+                2 => 0.5,
+                default => 0.33,
+            };
+
+            $normalC2 = match ($p->c2) {
+                3 => 1,
+                2 => 0.66,
+                default => 0.33,
+            };
+
+            $normalC3 = match ($p->c3) {
+                3 => 1,
+                2 => 0.66,
+                default => 0.33,
+            };
+
+            /*
+        | PERHITUNGAN SAW |
+        */
+
+            $skor =
+                ($normalC1 * 0.5) +
+                ($normalC2 * 0.3) +
+                ($normalC3 * 0.2);
+
             $skor = round($skor, 3);
 
-            if ($skor >= 0.90) {
+            /*
+        | REKOMENDASI IKAN |
+        */
+
+            if ($skor >= 0.75) {
                 $rekomendasi = 'Ikan Cupang';
-            } elseif ($skor >= 0.70) {
+            } elseif ($skor >= 0.43) {
                 $rekomendasi = 'Ikan GlowFish';
             } else {
                 $rekomendasi = 'Ikan KOI';
@@ -85,12 +131,15 @@ class SpkController extends Controller
             $hasil[] = [
                 'id' => $p->id,
                 'nama_responden' => $p->nama_responden,
+
                 'c1' => $p->c1,
                 'c2' => $p->c2,
                 'c3' => $p->c3,
+
                 'normal_c1' => $normalC1,
                 'normal_c2' => $normalC2,
                 'normal_c3' => $normalC3,
+
                 'skor' => $skor,
                 'rekomendasi' => $rekomendasi,
             ];
